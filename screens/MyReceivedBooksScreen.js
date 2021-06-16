@@ -15,17 +15,7 @@ export default class MyReceivedBooksScreen extends Component{
   this.requestRef= null
   }
 
-  getReceivedBooksList =()=>{
-    this.requestRef = db.collection("requested_books")
-    .where('user_id','==',this.state.userId)
-    .where("book_status", '==','received')
-    .onSnapshot((snapshot)=>{
-      var receivedBooksList = snapshot.docs.map((doc) => doc.data())
-      this.setState({
-        receivedBooksList : receivedBooksList
-      });
-    })
-  }
+ 
 
   componentDidMount(){
     this.getReceivedBooksList()
@@ -52,26 +42,7 @@ export default class MyReceivedBooksScreen extends Component{
 
   render(){
     return(
-      <View style={{flex:1}}>
-        <MyHeader title="Received Books" navigation ={this.props.navigation}/>
-        <View style={{flex:1}}>
-          {
-            this.state.receivedBooksList.length === 0
-            ?(
-              <View style={styles.subContainer}>
-                <Text style={{ fontSize: 20}}>List Of All Received Books</Text>
-              </View>
-            )
-            :(
-              <FlatList
-                keyExtractor={this.keyExtractor}
-                data={this.state.receivedBooksList}
-                renderItem={this.renderItem}
-              />
-            )
-          }
-        </View>
-      </View>
+      
     )
   }
 }
